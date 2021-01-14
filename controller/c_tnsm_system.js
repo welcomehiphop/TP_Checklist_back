@@ -6,6 +6,7 @@ const express = require('express')
 const router = express.Router()
 const multer = require('multer')
 const sequelize = require('sequelize');
+const path = require('path')
 const { QueryTypes } = require('sequelize');
 const multerConfig = require('../config/multer_config')
 const upload = multer(multerConfig.config).single(multerConfig.keyUpload)
@@ -63,6 +64,11 @@ router.get('/atp_get_list', async(req, res) => {
     res.send(data);
 })
 
+router.get('/image/:filename', async(req, res) => {
+    const filename = req.params.filename
+    res.sendFile(path.join(__basedir + "/upload/images/image_after_1610618355780.jpg"))
+})
+
 router.get('/atp_get_list/:id', async(req, res) => {
     /* with sql command*/
     const id = req.params.id
@@ -80,7 +86,7 @@ router.put('/atp_get_list/:id', async(req, res) => {
     const dateAndTime = req.body.dateAndTime
     const empNo = req.body.empNo
     const action = req.body.action
-    const picture = req.file.filename
+    const picture = "http://localhost:3000/image/" + req.file.filename
     const sql = "UPDATE TP_CheckResult set after_empno = :empNo , after_comment = :action, after_reg_date = :dateAndTime, check_status = :status ,picture_after = :picture where idx = :id"
     const [results, metadata] = await db.sequelize.query(sql, {
         replacements: { empNo: empNo, action: action, dateAndTime: dateAndTime, id: id, status: status, picture: picture },

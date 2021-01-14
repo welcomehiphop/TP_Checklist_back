@@ -10,7 +10,7 @@ global.__basedir = __dirname
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-    // app.use(bodyParser.urlencoded({ extended: true }))
+
 
 app.use(require('./middleware/upload'))
     // app.use(express.static(path.join(__dirname, '/upload')));
