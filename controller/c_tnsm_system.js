@@ -9,13 +9,13 @@ const sequelize = require('sequelize');
 const path = require('path')
 const { QueryTypes } = require('sequelize');
 const multerConfig = require('../config/multer_config')
-const upload = multer(multerConfig.config).single(multerConfig.keyUpload)
-const db = require('../models')
-const uploadFile = require("../middleware/upload");
+    //const upload = multer(multerConfig.config).single(multerConfig.keyUpload)
+const db = require('../models');
+const uploadFileMiddleware = require("../middleware/upload");
+//const uploadFile = require("../middleware/upload");
 
-// router.post('/upload', async(req, res) => {
+// router.post('/upload', uploadFileMiddleware, async(req, res) => {
 //     try {
-//         await uploadFile(req, res)
 //         if (req.file == undefined) {
 //             return res.status(400).send({ message: "Please upload a file!" });
 //         }
@@ -66,7 +66,7 @@ router.get('/atp_get_list', async(req, res) => {
 
 router.get('/image/:filename', async(req, res) => {
     const filename = req.params.filename
-    res.sendFile(path.join(__basedir + "/upload/images/image_after_1610618355780.jpg"))
+    res.sendFile(path.join(__basedir + "/upload/images/" + filename))
 })
 
 router.get('/atp_get_list/:id', async(req, res) => {
@@ -79,8 +79,8 @@ router.get('/atp_get_list/:id', async(req, res) => {
     res.send(data);
 })
 
-router.put('/atp_get_list/:id', async(req, res) => {
-    // await uploadFile(req, res)
+router.put('/atp_get_list/:id', uploadFileMiddleware, async(req, res) => {
+    //await uploadFile(req, res)
     const id = req.params.id
     const status = req.body.status
     const dateAndTime = req.body.dateAndTime
@@ -94,5 +94,28 @@ router.put('/atp_get_list/:id', async(req, res) => {
     })
     res.send("Updated successfully")
 })
+
+router.post('/userlogin', async(req, res) => {
+    const empno = req.body.empno
+    const sql = "select usrid from t_user where usrid = :empno"
+    const data = await db.sequelize.query(sql, {
+        replacements: { empno: empno },
+        type: QueryTypes.SELECT
+    })
+
+    res.send(data)
+})
+
+// router.post('/atp_get_list_update/', async(req, res) => {
+//     console.log(req.body)
+//     const picture = "http://localhost:3000/image/" + req.file.filename
+//     const sql = "UPDATE TP_CheckResult set after_empno = :empNo , after_comment = :action, after_reg_date = :dateAndTime, check_status = :status ,picture_after = :picture where idx = :id"
+//     const [results, metadata] = await db.sequelize.query(sql, {
+//         replacements: { empNo: empNo, action: action, dateAndTime: dateAndTime, id: id, status: status, picture: picture },
+//         type: QueryTypes.UPDATE
+//     })
+//     res.send("Updated successfully")
+// })
+
 
 module.exports = router

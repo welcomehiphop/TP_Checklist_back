@@ -3,7 +3,7 @@
         "username": "sa",
         "password": "tsePortal@2013",
         "database": "intra_TSE",
-        "host": "107.101.81.15",
+        "host": "107.101.81.9",
         "dialect": "mssql",
         "operatorsAliases": 0,
         "dialectOptions": {
@@ -23,7 +23,7 @@
         "username": "sa",
         "password": "tsePortal@2013",
         "database": "intra_TSE",
-        "host": "107.101.81.15",
+        "host": "107.101.81.9",
         "dialect": "mssql",
         "operatorsAliases": 0,
         "dialectOptions": {
