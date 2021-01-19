@@ -1,9 +1,9 @@
 {
     "development": {
         "username": "sa",
-        "password": "tsePortal@2013",
+        "password": "1234",
         "database": "intra_TSE",
-        "host": "107.101.81.9",
+        "host": "localhost",
         "dialect": "mssql",
         "operatorsAliases": 0,
         "dialectOptions": {
