@@ -80,6 +80,7 @@ router.get('/atp_get_list/:id', async(req, res) => {
     res.send(data);
 })
 
+<<<<<<< HEAD
 router.delete('/atp_delete_list/:id', async(req, res) => {
     const id = req.params.id
     const sql = "DELETE FROM TP_CheckResult where idx = :id"
@@ -89,6 +90,8 @@ router.delete('/atp_delete_list/:id', async(req, res) => {
     })
     res.send("Delete sucessfully")
 })
+=======
+>>>>>>> 56e3a5d801def9df00827665740c900cee0e83a3
 
 router.put('/atp_get_list/:id', uploadFileMiddleware, async(req, res) => {
     //await uploadFile(req, res)
